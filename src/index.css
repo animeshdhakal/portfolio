@@ -3,3 +3,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Used for Debugging */
+/* * {
+	outline: 1px solid #f00 !important;
+} */

@@ -1,0 +1,82 @@
+[
+	{
+		"image": "https://cdn.worldvectorlogo.com/logos/react-2.svg",
+		"name": "React"
+	},
+	{
+		"image": "https://cdn.worldvectorlogo.com/logos/typescript.svg",
+		"name": "TypeScript"
+	},
+	{
+		"image": "https://cdn.worldvectorlogo.com/logos/nodejs-icon.svg",
+		"name": "Node.js"
+	},
+	{
+		"image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/ISO_C%2B%2B_Logo.svg/1200px-ISO_C%2B%2B_Logo.svg.png",
+		"name": "C++"
+	},
+	{
+		"image": "https://upload.wikimedia.org/wikipedia/commons/1/19/C_Logo.png",
+		"name": "C"
+	},
+	{
+		"image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Rust_programming_language_black_logo.svg/106px-Rust_programming_language_black_logo.svg.png?20220508043311",
+		"name": "Rust"
+	},
+	{
+		"image": "https://assets.stickpng.com/thumbs/58480979cef1014c0b5e4901.png",
+		"name": "Java"
+	},
+	{
+		"image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Blender_logo_no_text.svg/2503px-Blender_logo_no_text.svg.png",
+		"name": "Blender"
+	},
+	{
+		"name": "Unreal Engine",
+		"image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Unreal_Engine_Logo.svg/1971px-Unreal_Engine_Logo.svg.png"
+	},
+	{
+		"name": "Figma",
+		"image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Figma-logo.svg/1200px-Figma-logo.svg.png"
+	},
+	{
+		"name": "Python",
+		"image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/768px-Python-logo-notext.svg.png"
+	},
+	{
+		"name": "C#",
+		"image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/C_Sharp_wordmark.svg/1200px-C_Sharp_wordmark.svg.png"
+	},
+	{
+		"name": "Qt",
+		"image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Qt_logo_2016.svg/1200px-Qt_logo_2016.svg.png"
+	},
+	{
+		"name": "PyTorch",
+		"image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/PyTorch_logo_icon.svg/1200px-PyTorch_logo_icon.svg.png"
+	},
+	{
+		"name": "Git",
+		"image": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Git-logo.svg/1200px-Git-logo.svg.png"
+	},
+	{
+		"name": "PostgreSQL",
+		"image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/1200px-Postgresql_elephant.svg.png"
+	},
+	{
+		"name": "Linux",
+		"image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Tux.svg/150px-Tux.svg.png"
+	},
+	{
+		"name": "Nginx",
+		"image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Nginx_logo.svg/120px-Nginx_logo.svg.png"
+	},
+	{
+		"name": "NextJS",
+		"image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Nextjs-logo.svg/1200px-Nextjs-logo.svg.png"
+	},
+	{
+		"name": "Arduino",
+		"image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Arduino_Logo.svg/1024px-Arduino_Logo.svg.png"
+	}
+]
