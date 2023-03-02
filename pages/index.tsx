@@ -102,7 +102,7 @@ export default function Home() {
 			<div className="text-gray-800 flex justify-center items-center flex-col bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100">
 				<div className="flex flex-col items-center my-4">
 					<Image
-						src="animesh.jpg"
+						src="/animesh.jpg"
 						alt="Animesh"
 						className="rounded-full h-32 w-32 shadow-gray-500 shadow-lg hover:scale-110 transition duration-500 ease-in-out"
 					/>
