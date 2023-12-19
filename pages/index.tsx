@@ -38,6 +38,7 @@ export default function Home({
 					property="og:description"
 					content="Animesh Dhakal's Portfolio"
 				/>
+				<meta name="google-site-verification" content="koP0PwRLjtDvBAaEqw4v6qksebN6QHGmi3P1_O6xfkQ" />
 			</Head>
 
 			<div className="text-gray-800 flex justify-center items-center flex-col bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100">
