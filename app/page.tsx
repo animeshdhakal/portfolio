@@ -18,7 +18,7 @@ export default async function Home() {
           <Image
             width={512}
             height={512}
-            src="/animesh.png"
+            src="/animesh.jpeg"
             alt="Animesh"
             className="rounded-full h-32 w-32 shadow-gray-500 shadow-lg hover:scale-110 transition duration-500 ease-in-out"
           />
