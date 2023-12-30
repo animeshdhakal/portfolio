@@ -16,8 +16,8 @@ export default async function Home() {
       <div className="flex justify-center items-center flex-col bg-gradient-to-r bg-white">
         <div className="flex flex-col items-center my-4">
           <Image
-            width={2600}
-            height={2600}
+            width={512}
+            height={512}
             src="/animesh.png"
             alt="Animesh"
             className="rounded-full h-32 w-32 shadow-gray-500 shadow-lg hover:scale-110 transition duration-500 ease-in-out"
