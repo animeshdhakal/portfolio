@@ -1,7 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-		domains: ["upload.wikimedia.org", "cdn.worldvectorlogo.com"],
+        remotePatterns: [
+            {
+                hostname: "upload.wikimedia.org",
+                protocol: "https",
+                pathname: "**",
+            },
+            {
+                hostname: "cdn.worldvectorlogo.com",
+                protocol: "https",
+                pathname: "**",
+            },
+        ],
 	},
 }
 

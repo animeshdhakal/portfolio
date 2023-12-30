@@ -1,8 +1,6 @@
-import { Metadata } from "next";
 import Image from "next/image";
-import path from "path";
-import fs from "fs";
 import Link from "next/link";
+import { getTechnologies } from "@/lib/data";
 
 interface Technology {
   image: string;
@@ -10,12 +8,8 @@ interface Technology {
   href: string;
 }
 
-export default function Home() {
-  const jsonDir = path.join(process.cwd(), "data", "technologies.json");
-  const jsonData = fs.readFileSync(jsonDir);
-  const technologies: Array<Technology> = JSON.parse(
-    jsonData.toString("utf-8")
-  );
+export default async function Home() {
+  const technologies = getTechnologies();
 
   return (
     <>
@@ -50,7 +44,7 @@ export default function Home() {
           <h3 className="text-md text-gray-700">Who Loves Open Source</h3>
         </div>
 
-        <div className="tech-stack mt-5 flex flex-col items-center text-gray-700">
+        <div className="tech-stack mt-5 flex flex-col items-center text-gray-600">
           <h1 className="text-xl  font-semibold">Technologies I use</h1>
           <div className="grid grid-cols-3 gap-4 mt-4 md:grid-cols-5">
             {technologies.map((tech) => (
@@ -76,7 +70,7 @@ export default function Home() {
         </div>
 
         {/* Contact */}
-        <div className="contact my-5 flex flex-col items-center text-gray-700">
+        <div className="contact my-5 flex flex-col items-center text-gray-600">
           <h1 className="text-xl  font-semibold">Contact Me</h1>
           <div className="flex items-center m-4 flex-row space-x-4">
             <a
@@ -124,11 +118,3 @@ export default function Home() {
     </>
   );
 }
-
-export const metadata: Metadata = {
-  title: "Animesh Dhakal",
-  description: "Animesh Dhakal's Portfolio",
-  icons: {
-    icon: "icon.png",
-  },
-};

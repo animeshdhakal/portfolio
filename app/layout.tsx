@@ -11,7 +11,10 @@ const inter = Poppins({
 
 export const metadata: Metadata = {
   title: "Animesh Dhakal",
-  description: "Animesh Dhakal",
+  description: "Animesh Dhakal's Portfolio",
+  icons: {
+    icon: "icon.png",
+  },
 };
 
 export default function RootLayout({
