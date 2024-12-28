@@ -99,7 +99,7 @@ export default async function Home() {
               </svg>
             </a>
             <a
-              href="mailto:hello@animeshdhakal.com.np"
+              href="mailto:hi@animeshdhakal.com.np"
               className="hover:scale-125 transform transition duration-500 ease-in-out"
             >
               <svg
