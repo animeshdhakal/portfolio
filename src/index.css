@@ -6,22 +6,13 @@ body {
   overflow-x: hidden;
 }
 
-/* Custom Scrollbar */
+/* Hide Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  display: none;
 }
 
-::-webkit-scrollbar-track {
-  background: #0f172a;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+html {
+  scrollbar-width: none;
 }
 
 .perspective-1000 {

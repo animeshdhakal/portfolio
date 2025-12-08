@@ -102,7 +102,7 @@ const Hero: React.FC = () => {
             <a href="https://linkedin.com/in/animeshdhakal" target="_blank" rel="noreferrer" className="p-4 rounded-full glass hover:bg-white/10 hover:border-white/20 text-white transition-all group" aria-label="LinkedIn">
               <Linkedin size={20} className="group-hover:scale-110 transition-transform" />
             </a>
-            <a href="mailto:animeshdhakal@gmail.com" target="_blank" rel="noreferrer" className="p-4 rounded-full glass hover:bg-white/10 hover:border-white/20 text-white transition-all group" aria-label="Email">
+            <a href="mailto:theanimeshdhakal@gmail.com" target="_blank" rel="noreferrer" className="p-4 rounded-full glass hover:bg-white/10 hover:border-white/20 text-white transition-all group" aria-label="Email">
               <Mail size={20} className="group-hover:scale-110 transition-transform" />
             </a>
           </div>

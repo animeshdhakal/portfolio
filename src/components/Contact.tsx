@@ -22,7 +22,7 @@ const Contact: React.FC = () => {
 
         <div className="flex flex-col md:flex-row items-center justify-center gap-8 mb-12">
           <a
-            href="mailto:hello@animeshdhakal.com.np"
+            href="mailto:theanimeshdhakal@gmail.com"
             className="flex items-center gap-3 px-6 py-4 bg-white/5 rounded-xl border border-white/10 hover:bg-white/10 hover:border-primary/50 transition-all group"
           >
             <div className="bg-primary/20 p-2 rounded-lg text-primary group-hover:scale-110 transition-transform">
@@ -33,7 +33,7 @@ const Contact: React.FC = () => {
                 Email
               </div>
               <div className="text-white font-medium">
-                hello@animeshdhakal.com.np
+                theanimeshdhakal@gmail.com
               </div>
             </div>
           </a>
