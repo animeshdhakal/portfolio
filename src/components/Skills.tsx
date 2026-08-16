@@ -1,203 +1,141 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from "react";
+import { Cpu, Server, Globe, Wrench, Layers } from "lucide-react";
 
-import { Code2, Server, Cpu, Brain, Layers, Database, Globe, PenTool } from 'lucide-react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+interface SkillCategory {
+  title: string;
+  icon: React.ReactNode;
+  skills: {
+    name: string;
+    note: string;
+  }[];
+}
 
 const Skills: React.FC = () => {
-  const SKILLS = [
-    { name: "React / Next.js", level: 90, category: "Web" },
-    { name: "TypeScript", level: 90, category: "Web" },
-    { name: "PostgreSQL", level: 80, category: "Web" },
-    { name: "Rust", level: 75, category: "Systems" },
-    { name: "C / C++", level: 85, category: "Systems" },
-    { name: "Qt Framework", level: 70, category: "Systems" },
-    { name: "Embedded Linux", level: 70, category: "Embedded" },
-    { name: "Buildroot / Yocto", level: 65, category: "Embedded" },
-    { name: "Arduino / ESP32", level: 90, category: "Embedded" },
-    { name: "Python / PyTorch", level: 80, category: "AI" },
-    { name: "Blender 3D", level: 60, category: "Creative" },
-    { name: "Unreal Engine", level: 50, category: "Creative" }
+  const [activeTab, setActiveTab] = useState<string>("All");
+
+  const categories: SkillCategory[] = [
+    {
+      title: "Systems & Low-Level",
+      icon: <Server className="w-4 h-4 text-cyan-400" />,
+      skills: [
+        { name: "C (C99/C11)", note: "Firmware & Drivers" },
+        { name: "C++ (C++17/20)", note: "Client Libraries & OOP" },
+        { name: "Rust", note: "Memory Safety & Async" },
+        { name: "POSIX & Syscalls", note: "Linux Internals" },
+        { name: "Qt Framework", note: "Desktop & GUI" },
+      ],
+    },
+    {
+      title: "Embedded & Firmware",
+      icon: <Cpu className="w-4 h-4 text-cyan-400" />,
+      skills: [
+        { name: "FreeRTOS", note: "Tasks & Mutexes" },
+        { name: "ESP32 / ESP8266", note: "SoC & WiFi Stack" },
+        { name: "Embedded Linux", note: "Kernel & Device Trees" },
+        { name: "Protocols", note: "UART, SPI, I2C" },
+        { name: "Buildroot / Yocto", note: "Root Filesystems" },
+      ],
+    },
+    {
+      title: "Networking & Protocols",
+      icon: <Layers className="w-4 h-4 text-cyan-400" />,
+      skills: [
+        { name: "Netty Framework", note: "Async Non-blocking I/O" },
+        { name: "Wire Protocols", note: "Custom Binary Framing" },
+        { name: "WebSockets & TCP", note: "Persistent Streams" },
+        { name: "TLS / SSL", note: "Secure Handshakes" },
+      ],
+    },
+    {
+      title: "Web & Full-Stack",
+      icon: <Globe className="w-4 h-4 text-cyan-400" />,
+      skills: [
+        { name: "TypeScript", note: "Type-Safe Architecture" },
+        { name: "React & Next.js", note: "UI Components & SSR" },
+        { name: "PostgreSQL", note: "Relational Schemas" },
+        { name: "Tailwind CSS", note: "Modern Layouts" },
+        { name: "Node.js", note: "APIs & Tooling" },
+      ],
+    },
+    {
+      title: "Tooling & Diagnostics",
+      icon: <Wrench className="w-4 h-4 text-cyan-400" />,
+      skills: [
+        { name: "GDB & Valgrind", note: "Memory & Debugging" },
+        { name: "Wireshark", note: "Packet Analysis" },
+        { name: "CMake", note: "Cross-Compilation" },
+        { name: "Git & Linux CLI", note: "Daily Workflow" },
+        { name: "Docker", note: "Containers" },
+      ],
+    },
   ];
-  const categories = Array.from(new Set(SKILLS.map(s => s.category)));
 
-  const getIcon = (category: string) => {
-    switch (category) {
-      case 'Web': return <Globe className="w-6 h-6" />;
-      case 'Systems': return <Server className="w-6 h-6" />;
-      case 'Embedded': return <Cpu className="w-6 h-6" />;
-      case 'AI': return <Brain className="w-6 h-6" />;
-      case 'Creative': return <PenTool className="w-6 h-6" />;
-      default: return <Layers className="w-6 h-6" />;
-    }
-  };
+  const filteredCategories =
+    activeTab === "All"
+      ? categories
+      : categories.filter((c) => c.title.toLowerCase().includes(activeTab.toLowerCase()));
 
-  const getColor = (category: string) => {
-    switch (category) {
-      case 'Web': return {
-        gradient: 'from-blue-500/20 to-cyan-500/20',
-        spotlight: 'rgba(56, 189, 248, 0.15)',
-        text: 'text-blue-400',
-        bg: 'bg-blue-500/10',
-        border: 'border-blue-500/20',
-        progress: 'bg-blue-500',
-      };
-      case 'Systems': return {
-        gradient: 'from-orange-500/20 to-red-500/20',
-        spotlight: 'rgba(249, 115, 22, 0.15)',
-        text: 'text-orange-400',
-        bg: 'bg-orange-500/10',
-        border: 'border-orange-500/20',
-        progress: 'bg-orange-500',
-      };
-      case 'Embedded': return {
-        gradient: 'from-emerald-500/20 to-green-500/20',
-        spotlight: 'rgba(16, 185, 129, 0.15)',
-        text: 'text-emerald-400',
-        bg: 'bg-emerald-500/10',
-        border: 'border-emerald-500/20',
-        progress: 'bg-emerald-500',
-      };
-      case 'AI': return {
-        gradient: 'from-violet-500/20 to-purple-500/20',
-        spotlight: 'rgba(139, 92, 246, 0.15)',
-        text: 'text-violet-400',
-        bg: 'bg-violet-500/10',
-        border: 'border-violet-500/20',
-        progress: 'bg-violet-500',
-      };
-      default: return {
-        gradient: 'from-slate-500/20 to-gray-500/20',
-        spotlight: 'rgba(148, 163, 184, 0.15)',
-        text: 'text-slate-400',
-        bg: 'bg-slate-500/10',
-        border: 'border-slate-500/20',
-        progress: 'bg-slate-500',
-      };
-    }
-  }
-
-  const SkillCard = ({ category, idx }: { category: string, idx: number }) => {
-    const divRef = useRef<HTMLDivElement>(null);
-    const [isFocused, setIsFocused] = useState(false);
-    const [position, setPosition] = useState({ x: 0, y: 0 });
-    const [opacity, setOpacity] = useState(0);
-
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-      if (!divRef.current) return;
-
-      const div = divRef.current;
-      const rect = div.getBoundingClientRect();
-
-      setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-    };
-
-    const handleFocus = () => {
-      setIsFocused(true);
-      setOpacity(1);
-    };
-
-    const handleBlur = () => {
-      setIsFocused(false);
-      setOpacity(0);
-    };
-
-    const handleMouseEnter = () => {
-      setOpacity(1);
-    };
-
-    const handleMouseLeave = () => {
-      setOpacity(0);
-    };
-
-    const colors = getColor(category);
-    const categorySkills = SKILLS.filter(s => s.category === category);
-
-    return (
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: idx * 0.1, duration: 0.5 }}
-        ref={divRef}
-        onMouseMove={handleMouseMove}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        className={`relative overflow-hidden rounded-3xl border border-white/5 bg-gray-900/40 backdrop-blur-xl transition-colors duration-500 group`}
-      >
-        <div
-          className="pointer-events-none absolute -inset-px opacity-0 transition duration-300"
-          style={{
-            opacity,
-            background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, ${colors.spotlight}, transparent 40%)`,
-          }}
-        />
-
-        <div className="relative p-6 md:p-8 h-full flex flex-col">
-          <div className="flex items-center gap-4 mb-6">
-            <div className={`p-3 rounded-xl ${colors.bg} ${colors.text}`}>
-              {getIcon(category)}
+  return (
+    <section id="skills" className="py-20 relative z-10 border-t border-slate-800/80">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+          <div>
+            <div className="font-mono text-xs text-cyan-400 mb-1 uppercase tracking-widest">
+              02 // Technical Stack
             </div>
-            <h3 className="text-xl md:text-2xl font-bold text-slate-100">
-              {category}
-            </h3>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+              Skills &amp; Technologies
+            </h2>
           </div>
 
-          <div className="space-y-5 flex-grow">
-            {categorySkills.map((skill, skillIdx) => (
-              <div key={skill.name}>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium text-slate-400 group-hover:text-slate-200 transition-colors">
-                    {skill.name}
-                  </span>
-                  <span className={`text-xs font-mono font-medium ${colors.text} opacity-60 group-hover:opacity-100 transition-opacity`}>
-                    {skill.level}%
-                  </span>
-                </div>
-                <div className="h-1.5 w-full rounded-full bg-slate-800/50 overflow-hidden backdrop-blur-sm">
-                  <motion.div
-                    className={`h-full ${colors.progress} shadow-[0_0_10px_rgba(0,0,0,0.2)]`}
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${skill.level}%` }}
-                    viewport={{ once: true }}
-                    transition={{ delay: idx * 0.1 + skillIdx * 0.05 + 0.3, duration: 1, ease: "circOut" }}
-                  />
-                </div>
-              </div>
+          <div className="flex flex-wrap gap-1 p-1 bg-[#0d121c] border border-slate-800 rounded-xl">
+            {["All", "Systems", "Embedded", "Networking", "Web"].map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`px-3 py-1 rounded-lg text-xs font-mono transition-colors ${
+                  activeTab === tab
+                    ? "bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 font-medium"
+                    : "text-slate-400 hover:text-slate-200"
+                }`}
+              >
+                {tab}
+              </button>
             ))}
           </div>
         </div>
-      </motion.div>
-    );
-  };
 
-  return (
-    <section id="skills" className="py-32 relative z-10 overflow-hidden">
-      {/* Background Gradients */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[100px] pointer-events-none mix-blend-screen opacity-30 animate-pulse-slow"></div>
-      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[100px] pointer-events-none mix-blend-screen opacity-30 animate-pulse-slow delay-1000"></div>
+        {/* Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {filteredCategories.map((cat, idx) => (
+            <div
+              key={idx}
+              className="rounded-2xl bg-[#0d121c] border border-slate-800 p-5 hover:border-slate-700 transition-colors"
+            >
+              <div className="flex items-center gap-2.5 mb-4 pb-3 border-b border-slate-800">
+                <div className="p-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20">
+                  {cat.icon}
+                </div>
+                <h3 className="text-sm font-bold text-white">{cat.title}</h3>
+              </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-20"
-        >
-          <motion.h2
-            className="text-4xl md:text-5xl font-bold mb-6"
-          >
-            Technical <span className="text-gradient">Stacks</span>
-          </motion.h2>
-          <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">
-            A comprehensive toolkit for building robust, scalable, and intelligent solutions.
-          </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {categories.map((category, idx) => (
-            <SkillCard key={category} category={category} idx={idx} />
+              <div className="space-y-2">
+                {cat.skills.map((skill, sIdx) => (
+                  <div
+                    key={sIdx}
+                    className="flex items-center justify-between p-2 rounded-lg bg-[#111724]/60 border border-slate-800/50 text-xs"
+                  >
+                    <span className="font-mono font-medium text-slate-200">
+                      {skill.name}
+                    </span>
+                    <span className="text-[11px] font-mono text-cyan-400/80">
+                      {skill.note}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
       </div>

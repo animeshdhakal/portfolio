@@ -1,30 +1,36 @@
 export interface Project {
   id: string;
   title: string;
+  tagline: string;
   description: string;
+  architecture: string[];
+  metrics?: string[];
   tech: string[];
-  link?: string;
-  image: string;
-  category: 'Web' | 'Embedded' | 'Systems' | 'AI';
+  category: 'Systems' | 'Embedded' | 'Web' | 'All';
+  github: string;
+  live?: string;
+  featured: boolean;
+  codeSnippet?: {
+    filename: string;
+    language: string;
+    code: string;
+  };
 }
 
-export interface Skill {
-  name: string;
-  level: number; // 0-100
+export interface SkillGroup {
   category: string;
-  icon?: string;
+  iconName: string;
+  description: string;
+  skills: {
+    name: string;
+    highlight?: string;
+  }[];
 }
 
-export interface ChatMessage {
-  role: 'user' | 'model';
-  text: string;
-  timestamp: Date;
-}
-
-export enum Section {
-  HERO = 'hero',
-  ABOUT = 'about',
-  SKILLS = 'skills',
-  PROJECTS = 'projects',
-  CONTACT = 'contact',
+export interface EducationItem {
+  degree: string;
+  institution: string;
+  period: string;
+  location: string;
+  details: string[];
 }

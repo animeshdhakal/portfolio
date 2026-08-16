@@ -1,183 +1,229 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
+import { Github, ArrowUpRight, Cpu, Layers, Terminal, Binary, Globe } from "lucide-react";
 
-import { Github, ExternalLink, ArrowRight } from "lucide-react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-
-const ProjectCard = ({ project, index }: { project: any; index: number }) => {
-  const ref = useRef<HTMLDivElement>(null);
-
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  const mouseXSpring = useSpring(x);
-  const mouseYSpring = useSpring(y);
-
-  const rotateX = useTransform(
-    mouseYSpring,
-    [-0.5, 0.5],
-    ["12deg", "-12deg"]
-  );
-  const rotateY = useTransform(
-    mouseXSpring,
-    [-0.5, 0.5],
-    ["-12deg", "12deg"]
-  );
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
-
-    const rect = ref.current.getBoundingClientRect();
-
-    const width = rect.width;
-    const height = rect.height;
-
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-
-    const xPct = mouseX / width - 0.5;
-    const yPct = mouseY / height - 0.5;
-
-    x.set(xPct);
-    y.set(yPct);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      style={{
-        rotateX,
-        rotateY,
-        transformStyle: "preserve-3d",
-      }}
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className="group relative h-full w-full rounded-3xl bg-surface/30 border border-white/5 p-4 md:p-6 backdrop-blur-md hover:border-primary/50 transition-colors duration-300 shadow-xl"
-    >
-      <div
-        style={{ transform: "translateZ(50px)" }}
-        className="relative h-48 md:h-60 rounded-2xl overflow-hidden mb-6 shadow-2xl group-hover:shadow-primary/20 transition-shadow duration-500"
-      >
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10"></div>
-        <img
-          src={project.image}
-          alt={project.title}
-          className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
-        />
-        <div className="absolute top-4 right-4 z-20">
-          <span className="px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-mono text-primary border border-primary/20 shadow-lg">
-            {project.category}
-          </span>
-        </div>
-      </div>
-
-      <div style={{ transform: "translateZ(25px)" }} className="relative z-20">
-        <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-primary transition-colors">
-          {project.title}
-        </h3>
-        <p className="text-gray-400 text-sm mb-6 leading-relaxed">
-          {project.description}
-        </p>
-
-        <div className="flex flex-wrap gap-2 mb-6">
-          {project.tech.map((t: string) => (
-            <span
-              key={t}
-              className="text-xs text-gray-300 bg-white/5 border border-white/10 px-2 py-1 rounded-md font-mono hover:bg-white/10 transition-colors"
-            >
-              {t}
-            </span>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-4 pt-4 border-t border-white/5">
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noreferrer"
-            className="flex items-center gap-2 text-sm text-white hover:text-primary transition-colors font-medium group/btn"
-          >
-            <Github size={18} className="group-hover/btn:scale-110 transition-transform" />
-            Source Code
-          </a>
-        </div>
-      </div>
-
-      {/* Box Shadow cleaner */}
-      <div className="absolute inset-0 rounded-3xl shadow-[inset_0_0_20px_rgba(255,255,255,0.05)] pointer-events-none"></div>
-    </motion.div>
-  );
-};
+interface ProjectItem {
+  id: string;
+  title: string;
+  category: "Systems" | "Hardware" | "IoT" | "Web";
+  description: string;
+  tech: string[];
+  github: string;
+}
 
 const Projects: React.FC = () => {
+  const [activeCategory, setActiveCategory] = useState<string>("All");
+
+  const projects: ProjectItem[] = [
+    {
+      id: "riscv",
+      title: "riscv-emulator",
+      category: "Systems",
+      description: "Modular 32-bit RISC-V (RV32I base instruction set) processor emulator written in Rust.",
+      tech: ["Rust", "RISC-V", "Emulation", "Computer Architecture"],
+      github: "https://github.com/animeshdhakal/riscv-emulator",
+    },
+    {
+      id: "animesh-os",
+      title: "animesh-os",
+      category: "Systems",
+      description: "Hobby operating system kernel implementing core boot stages, memory management, and hardware interrupts.",
+      tech: ["C", "x86 Assembly", "OS Dev", "Kernel"],
+      github: "https://github.com/animeshdhakal/animesh-os",
+    },
+    {
+      id: "kyber-fpga",
+      title: "post-quantum-cryptography-fpga",
+      category: "Hardware",
+      description: "Hardware implementation of NIST Post-Quantum Crystals-Kyber cryptographic lattice algorithm.",
+      tech: ["SystemVerilog", "FPGA", "Cryptography", "Digital Design"],
+      github: "https://github.com/animeshdhakal/post-quantum-cryptography-fpga",
+    },
+    {
+      id: "socketiot",
+      title: "SocketIoT",
+      category: "IoT",
+      description: "High-throughput IoT message broker built with Netty, custom binary wire framing, and automated SSL.",
+      tech: ["Java", "Netty", "Custom Protocol", "WebSockets"],
+      github: "https://github.com/animeshdhakal/SocketIoT",
+    },
+    {
+      id: "dhakal-lang",
+      title: "dhakal-lang",
+      category: "Systems",
+      description: "Custom interpreted programming language featuring lexer, AST parser, and tree-walk runtime engine in Rust.",
+      tech: ["Rust", "Compilers", "AST", "Language Design"],
+      github: "https://github.com/animeshdhakal/dhakal-lang",
+    },
+    {
+      id: "socketiot-rtos",
+      title: "SocketIoTLibRTOS",
+      category: "Hardware",
+      description: "Memory-optimized C client library (<4KB RAM) for ESP8266 and FreeRTOS microcontrollers.",
+      tech: ["C99", "FreeRTOS", "ESP8266", "Embedded"],
+      github: "https://github.com/animeshdhakal/SocketIoTLibRTOS",
+    },
+    {
+      id: "8bit-cpu",
+      title: "8-bit-cpu",
+      category: "Hardware",
+      description: "Basic 8-bit CPU architecture designed and simulated with ALU, registers, and microcode instructions.",
+      tech: ["VHDL", "Digital Logic", "CPU Design"],
+      github: "https://github.com/animeshdhakal/8-bit-cpu",
+    },
+    {
+      id: "dns-server",
+      title: "dns-server",
+      category: "Systems",
+      description: "Lightweight authoritative and recursive DNS server handling UDP packet queries written in Rust.",
+      tech: ["Rust", "DNS", "UDP", "Networking"],
+      github: "https://github.com/animeshdhakal/dns-server",
+    },
+    {
+      id: "6502-emulator",
+      title: "6502Emulator",
+      category: "Systems",
+      description: "Cycle-accurate emulator of the classic MOS Technology 6502 8-bit microprocessor in C.",
+      tech: ["C", "Emulation", "6502", "Microprocessors"],
+      github: "https://github.com/animeshdhakal/6502Emulator",
+    },
+    {
+      id: "socketiot-lib",
+      title: "SocketIoTLib",
+      category: "IoT",
+      description: "High-performance, zero-overhead C++ client library for embedded Linux and desktop IoT targets.",
+      tech: ["C++17", "Asynchronous I/O", "Networking", "CMake"],
+      github: "https://github.com/animeshdhakal/SocketIoTLib",
+    },
+    {
+      id: "ieee-website",
+      title: "ieee-website",
+      category: "Web",
+      description: "Official web platform for IEEE Pulchowk Student Branch with event registration and portal features.",
+      tech: ["TypeScript", "React", "Tailwind CSS"],
+      github: "https://github.com/animeshdhakal/ieee-website",
+    },
+    {
+      id: "self-balancing-robot",
+      title: "SelfBalancingRobot",
+      category: "Hardware",
+      description: "Two-wheeled self-balancing inverted pendulum robot with PID control and IMU sensor fusion.",
+      tech: ["C", "Robotics", "PID Control", "Embedded"],
+      github: "https://github.com/animeshdhakal/SelfBalancingRobot",
+    },
+  ];
+
+  const getCategoryIcon = (category: string) => {
+    switch (category) {
+      case "Hardware":
+        return <Cpu className="w-4 h-4" />;
+      case "Systems":
+        return <Binary className="w-4 h-4" />;
+      case "IoT":
+        return <Layers className="w-4 h-4" />;
+      case "Web":
+        return <Globe className="w-4 h-4" />;
+      default:
+        return <Terminal className="w-4 h-4" />;
+    }
+  };
+
+  const filteredProjects =
+    activeCategory === "All"
+      ? projects
+      : projects.filter((p) => p.category === activeCategory);
+
   return (
-    <section id="projects" className="py-32 relative z-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+    <section id="projects" className="py-20 relative z-10 border-t border-slate-800/80">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
           <div>
-            <motion.h2
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="text-4xl md:text-5xl font-bold text-white mb-4"
-            >
-              Featured <span className="text-gradient">Projects</span>
-            </motion.h2>
-            <p className="text-gray-400 max-w-lg text-lg">
-              A selection of my work in embedded systems, web development, and
-              AI.
-            </p>
+            <div className="font-mono text-xs text-cyan-400 mb-1 uppercase tracking-widest">
+              03 // Repositories
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+              Featured Projects
+            </h2>
           </div>
-          <a
-            href="https://github.com/animeshdhakal"
-            target="_blank"
-            rel="noreferrer"
-            className="group text-white hover:text-accent transition-colors flex items-center gap-2 font-mono text-sm border-b border-transparent hover:border-accent pb-1"
-          >
-            View all on GitHub{" "}
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </a>
+
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap gap-1 p-1 bg-[#0d121c] border border-slate-800 rounded-xl">
+              {["All", "Systems", "Hardware", "IoT", "Web"].map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`px-3 py-1 rounded-lg text-xs font-mono transition-colors ${
+                    activeCategory === cat
+                      ? "bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 font-medium"
+                      : "text-slate-400 hover:text-slate-200"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+
+            <a
+              href="https://github.com/animeshdhakal?tab=repositories"
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-1 px-3 py-1.5 text-xs font-mono text-slate-300 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 rounded-xl transition-all"
+            >
+              <span>GitHub</span>
+              <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
+            </a>
+          </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 perspective-1000">
-          {[
-            {
-              id: "1",
-              title: "SocketIoT",
-              description: "High-performance IoT platform built on Netty with custom protocols, supporting real-time device messaging, email/push notifications, and automatic SSL.",
-              tech: ["Java", "Netty", "WebSocket", "IoT"],
-              image: "https://picsum.photos/seed/socketiot/800/600",
-              category: "Systems",
-              github: "https://github.com/animeshdhakal/SocketIoT"
-            },
-            {
-              id: "2",
-              title: "SocketIoTLib",
-              description: "Efficient C++ client library for the SocketIoT platform, designed for performance-critical embedded systems and desktop applications.",
-              tech: ["C++", "Networking", "Client Lib"],
-              image: "https://picsum.photos/seed/socketiotlib/800/600",
-              category: "Systems",
-              github: "https://github.com/animeshdhakal/SocketIoTLib"
-            },
-            {
-              id: "3",
-              title: "SocketIoTLibRTOS",
-              description: "Optimized C library bringing SocketIoT connectivity to ESP8266 and other RTOS-based embedded devices.",
-              tech: ["C", "ESP8266", "RTOS", "Embedded"],
-              image: "https://picsum.photos/seed/rtos/800/600",
-              category: "Embedded",
-              github: "https://github.com/animeshdhakal/SocketIoTLibRTOS"
-            }
-          ].map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} />
+        {/* Project Cards Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {filteredProjects.map((project) => (
+            <div
+              key={project.id}
+              className="rounded-2xl bg-[#0d121c] border border-slate-800 p-5 flex flex-col justify-between hover:border-slate-700 transition-colors group"
+            >
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <div className="p-2 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-400">
+                    {getCategoryIcon(project.category)}
+                  </div>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">
+                    {project.category}
+                  </span>
+                </div>
+
+                <h3 className="text-base font-bold text-white mb-2 font-mono group-hover:text-cyan-300 transition-colors">
+                  {project.title}
+                </h3>
+                <p className="text-xs text-slate-300 leading-relaxed mb-5">
+                  {project.description}
+                </p>
+              </div>
+
+              <div>
+                <div className="flex flex-wrap gap-1.5 mb-4">
+                  {project.tech.map((t) => (
+                    <span
+                      key={t}
+                      className="px-2 py-0.5 rounded bg-[#111724] border border-slate-800 text-slate-400 text-[10px] font-mono"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center justify-center gap-2 w-full py-1.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-xs font-mono text-slate-200 transition-colors"
+                >
+                  <Github className="w-3.5 h-3.5" />
+                  <span>Source Code</span>
+                  <ArrowUpRight className="w-3 h-3 text-slate-500" />
+                </a>
+              </div>
+            </div>
           ))}
         </div>
       </div>

@@ -1,62 +1,97 @@
-import React from 'react';
-
-import { GraduationCap, Award, BookOpen } from 'lucide-react';
-import { motion } from 'framer-motion';
+import React from "react";
+import { GraduationCap, MapPin } from "lucide-react";
 
 const About: React.FC = () => {
-  return (
-    <section id="about" className="py-20 relative z-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            About <span className="text-gradient">Me</span>
-          </h2>
-        </motion.div>
+  const education = [
+    {
+      degree: "B.E. in Electronics, Communication & Information Engineering",
+      institution: "Pulchowk Campus (IOE), Tribhuvan University",
+      period: "2024 — Present",
+      location: "Lalitpur, Nepal",
+      current: true,
+    },
+    {
+      degree: "High School (+2 Science)",
+      institution: "Valmiki Shiksha Sadan",
+      period: "2022 — 2024",
+      location: "Chitwan, Nepal",
+      current: false,
+    },
+    {
+      degree: "Secondary Education Exam (SEE)",
+      institution: "Gyan Jyoti English School",
+      period: "2022",
+      location: "Nepal",
+      current: false,
+    },
+  ];
 
-        <div className="grid md:grid-cols-2 gap-12">
-          {/* Text Content */}
-          <div className="space-y-6">
-            <h3 className="text-2xl font-semibold text-white">Full Stack & Embedded Systems Developer</h3>
-            <p className="text-gray-400 leading-relaxed">
-              I am a Full Stack & Embedded Systems Developer with a passion for Open Source. Currently an Engineering Student at Pulchowk Campus (IOE). I specialize in building scalable web applications and robust embedded systems, comfortably moving between React, Rust, and raw hardware registers.
+  return (
+    <section id="about" className="py-20 relative z-10 border-t border-slate-800/80">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="mb-10">
+          <div className="font-mono text-xs text-cyan-400 mb-1 uppercase tracking-widest">
+            01 // About
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+            Background &amp; Education
+          </h2>
+        </div>
+
+        <div className="grid lg:grid-cols-12 gap-8 items-start">
+          {/* Bio text */}
+          <div className="lg:col-span-6 space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed">
+            <p>
+              Engineering undergraduate at <strong className="text-white">Pulchowk Campus (IOE)</strong>.
+              I build software ranging from bare-metal microcontrollers and custom network protocols to high-throughput servers and web apps.
+            </p>
+            <p className="text-slate-400 text-sm">
+              Experienced with C, C++, Rust, FreeRTOS, Java (Netty), and modern web stacks like React and TypeScript.
             </p>
           </div>
 
-          {/* Education Timeline */}
-          <div className="space-y-8">
-            <h3 className="text-xl font-semibold text-white mb-6 flex items-center gap-2">
-              <GraduationCap className="text-primary" /> Education History
-            </h3>
+          {/* Clean Timeline */}
+          <div className="lg:col-span-6">
+            <div className="rounded-2xl bg-[#0d121c] border border-slate-800 p-6 space-y-6">
+              <div className="flex items-center gap-2 pb-3 border-b border-slate-800 text-white font-semibold text-sm">
+                <GraduationCap className="w-4 h-4 text-cyan-400" />
+                <span>Education</span>
+              </div>
 
-            <div className="relative border-l-2 border-white/10 ml-3 space-y-10 pl-8">
-              <div className="relative">
-                <div className="absolute -left-[45px] bg-darker p-1">
-                  <div className="w-4 h-4 rounded-full bg-primary border-4 border-darker"></div>
-                </div>
-                <h4 className="text-lg font-bold text-white">Pulchowk Campus (IOE), Tribhuvan University</h4>
-                <p className="text-primary font-medium">B.E. in Electronics, Communication, and Information Engineering</p>
-                <p className="text-sm text-gray-500 mb-2">2024 - Present</p>
-              </div>
-              <div className="relative">
-                <div className="absolute -left-[45px] bg-darker p-1">
-                  <div className="w-4 h-4 rounded-full bg-primary border-4 border-darker"></div>
-                </div>
-                <h4 className="text-lg font-bold text-white">Valmiki Shiksha Sadan</h4>
-                <p className="text-primary font-medium">High School (Science)</p>
-                <p className="text-sm text-gray-500 mb-2">2022 - 2024</p>
-              </div>
-              <div className="relative">
-                <div className="absolute -left-[45px] bg-darker p-1">
-                  <div className="w-4 h-4 rounded-full bg-primary border-4 border-darker"></div>
-                </div>
-                <h4 className="text-lg font-bold text-white">Gyan Jyoti English School</h4>
-                <p className="text-primary font-medium">Secondary Education (SEE)</p>
-                <p className="text-sm text-gray-500 mb-2">Completed 2022</p>
+              <div className="relative border-l border-slate-800 ml-2 space-y-6 pl-5">
+                {education.map((item, idx) => (
+                  <div key={idx} className="relative">
+                    <div
+                      className={`absolute -left-[27px] top-1 w-3 h-3 rounded-full border-2 ${
+                        item.current
+                          ? "bg-cyan-400 border-[#0d121c]"
+                          : "bg-slate-700 border-[#0d121c]"
+                      }`}
+                    />
+
+                    <div className="flex items-center justify-between text-xs font-mono text-cyan-400 mb-0.5">
+                      <span>{item.period}</span>
+                      {item.current && (
+                        <span className="px-2 py-0.5 rounded bg-cyan-500/10 text-[10px] text-cyan-300 border border-cyan-500/20">
+                          Active
+                        </span>
+                      )}
+                    </div>
+
+                    <h4 className="text-sm font-semibold text-white">
+                      {item.degree}
+                    </h4>
+
+                    <p className="text-xs text-slate-400 mt-0.5">
+                      {item.institution}
+                    </p>
+
+                    <div className="flex items-center gap-1 text-[11px] text-slate-500 mt-1">
+                      <MapPin className="w-3 h-3" />
+                      <span>{item.location}</span>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

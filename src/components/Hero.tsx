@@ -1,124 +1,160 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Download, ChevronDown, Github, Linkedin, Mail } from "lucide-react";
-
+import {
+  ArrowDown,
+  Check,
+  Copy,
+  Github,
+  Linkedin,
+  Cpu,
+  Layers,
+  Terminal,
+} from "lucide-react";
 
 const Hero: React.FC = () => {
+  const [copied, setCopied] = useState(false);
+  const email = "theanimeshdhakal@gmail.com";
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
+      className="relative min-h-[85vh] pt-32 pb-16 flex flex-col justify-center overflow-hidden"
     >
-      {/* Ambient background glow */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[100px] -z-10 animate-pulse-slow"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-[100px] -z-10 animate-pulse-slow delay-1000"></div>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 w-full">
+        <div className="grid lg:grid-cols-12 gap-8 items-center">
+          {/* Left Column */}
+          <div className="lg:col-span-7 space-y-5">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/90 border border-slate-800 text-xs font-mono text-slate-300"
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+              <span>Pulchowk Campus (IOE)</span>
+              <span className="text-slate-600">•</span>
+              <span className="text-cyan-400">Electronics &amp; Information</span>
+            </motion.div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="inline-block mb-8"
-        >
-          <div className="px-4 py-1.5 rounded-full glass border border-primary/30 flex items-center gap-2 hover:bg-primary/10 transition-colors duration-300 cursor-default">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-            </span>
-            <span className="text-xs font-mono font-medium text-primary tracking-wide uppercase">
-              Available for new opportunities
-            </span>
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.05 }}
+            >
+              <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-white">
+                Animesh Dhakal
+              </h1>
+              <p className="text-base sm:text-lg font-mono text-cyan-400 mt-2">
+                Systems &amp; Embedded Software Engineer
+              </p>
+            </motion.div>
+
+            {/* Single punchy 1-line bio */}
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-slate-300 text-base sm:text-lg leading-relaxed max-w-xl"
+            >
+              Building low-level network brokers, embedded firmware, and performant systems across hardware and software.
+            </motion.p>
+
+            {/* CTA Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+              className="flex flex-wrap items-center gap-3 pt-2"
+            >
+              <a
+                href="#projects"
+                className="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold font-mono text-xs transition-colors flex items-center gap-2"
+              >
+                <span>View Projects</span>
+                <ArrowDown className="w-3.5 h-3.5" />
+              </a>
+
+              <button
+                onClick={handleCopyEmail}
+                className="px-3.5 py-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-slate-200 font-mono text-xs transition-colors flex items-center gap-2"
+                title="Copy email"
+              >
+                {copied ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-emerald-400" />
+                    <span className="text-emerald-400">Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3.5 h-3.5 text-slate-400" />
+                    <span>theanimeshdhakal@gmail.com</span>
+                  </>
+                )}
+              </button>
+
+              <div className="flex items-center gap-2">
+                <a
+                  href="https://github.com/animeshdhakal"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="p-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-slate-300 hover:text-white transition-colors"
+                  aria-label="GitHub"
+                >
+                  <Github className="w-4 h-4" />
+                </a>
+                <a
+                  href="https://linkedin.com/in/animeshdhakal"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="p-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-slate-300 hover:text-white transition-colors"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin className="w-4 h-4" />
+                </a>
+              </div>
+            </motion.div>
           </div>
-        </motion.div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="text-7xl md:text-9xl font-bold tracking-tighter mb-6"
-        >
-          <span className="bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/50">
-            Animesh
-          </span>
-          <br className="md:hidden" />
-          <span className="bg-clip-text text-transparent bg-gradient-to-b from-white/80 via-white/50 to-white/30 md:ml-4">
-            Dhakal
-          </span>
-        </motion.h1>
+          {/* Right Column: Clean Telemetry Snippet */}
+          <div className="lg:col-span-5">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.1 }}
+              className="rounded-2xl bg-[#0d121c] border border-slate-800 p-5 font-mono text-xs space-y-3"
+            >
+              <div className="flex items-center justify-between pb-3 border-b border-slate-800 text-slate-400 text-[11px]">
+                <span>stack.sys // active</span>
+                <span className="text-emerald-400">ONLINE</span>
+              </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          <h2 className="text-2xl md:text-3xl font-light text-primary mb-8 font-mono bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-400">
-            &lt;Generalist Engineer /&gt;
-          </h2>
-        </motion.div>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed"
-        >
-          Constructing high-performance digital experiences at the intersection of{" "}
-          <span className="text-white font-medium relative inline-block">
-            Hardware
-            <span className="absolute bottom-0 left-0 w-full h-[1px] bg-primary/50"></span>
-          </span>{" "}
-          and{" "}
-          <span className="text-white font-medium relative inline-block">
-            Software
-            <span className="absolute bottom-0 left-0 w-full h-[1px] bg-purple-500/50"></span>
-          </span>
-          .
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-5"
-        >
-          <a
-            href="#projects"
-            className="group relative px-8 py-4 rounded-full font-bold text-sm tracking-wide hover:scale-105 transition-all duration-300 flex items-center gap-2 overflow-hidden text-white shadow-[0_0_40px_-10px_rgba(59,130,246,0.5)] hover:shadow-[0_0_60px_-15px_rgba(59,130,246,0.7)]"
-            style={{
-              background: "linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)",
-            }}
-          >
-            <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity rounded-full"></div>
-            <span className="relative z-10 flex items-center gap-2">
-              View Work{" "}
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </span>
-          </a>
-
-          <div className="flex gap-3">
-            <a href="https://github.com/animeshdhakal" target="_blank" rel="noreferrer" className="p-4 rounded-full glass hover:bg-white/10 hover:border-white/20 text-white transition-all group" aria-label="Github">
-              <Github size={20} className="group-hover:scale-110 transition-transform" />
-            </a>
-            <a href="https://linkedin.com/in/animeshdhakal" target="_blank" rel="noreferrer" className="p-4 rounded-full glass hover:bg-white/10 hover:border-white/20 text-white transition-all group" aria-label="LinkedIn">
-              <Linkedin size={20} className="group-hover:scale-110 transition-transform" />
-            </a>
-            <a href="mailto:theanimeshdhakal@gmail.com" target="_blank" rel="noreferrer" className="p-4 rounded-full glass hover:bg-white/10 hover:border-white/20 text-white transition-all group" aria-label="Email">
-              <Mail size={20} className="group-hover:scale-110 transition-transform" />
-            </a>
+              <div className="space-y-2 text-slate-300">
+                <div className="flex justify-between py-1 border-b border-slate-800/60">
+                  <span className="text-slate-500">Focus</span>
+                  <span className="text-cyan-300">Systems &amp; Embedded</span>
+                </div>
+                <div className="flex justify-between py-1 border-b border-slate-800/60">
+                  <span className="text-slate-500">Core</span>
+                  <span>C/C++, Rust, FreeRTOS, Netty</span>
+                </div>
+                <div className="flex justify-between py-1 border-b border-slate-800/60">
+                  <span className="text-slate-500">Hardware</span>
+                  <span>ESP32, ESP8266, Embedded Linux</span>
+                </div>
+                <div className="flex justify-between py-1">
+                  <span className="text-slate-500">Full-Stack</span>
+                  <span>TypeScript, React, PostgreSQL</span>
+                </div>
+              </div>
+            </motion.div>
           </div>
-        </motion.div>
+        </div>
       </div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-500"
-      >
-        <span className="text-[10px] uppercase tracking-[0.2em]">Scroll</span>
-        <div className="w-[1px] h-12 bg-gradient-to-b from-slate-500 to-transparent"></div>
-      </motion.div>
     </section>
   );
 };

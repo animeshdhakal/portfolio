@@ -1,29 +1,55 @@
-import React, { Suspense, lazy } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Skills from "./components/Skills";
+import Projects from "./components/Projects";
+import RiscvSimulator from "./components/RiscvSimulator";
+import TerminalPlayground from "./components/TerminalPlayground";
 import Contact from "./components/Contact";
-
-const Background3D = lazy(() => import("./components/Background3D"));
-const Projects = lazy(() => import("./components/Projects"));
+import BackgroundGrid from "./components/BackgroundGrid";
+import CommandPalette from "./components/CommandPalette";
+import { initAudio } from "./utils/audio";
 
 const App: React.FC = () => {
-  return (
-    <div className="antialiased text-slate-200 selection:bg-primary/30 selection:text-white min-h-screen relative">
-      <Suspense fallback={<div className="fixed inset-0 bg-darker z-0" />}>
-        <Background3D />
-      </Suspense>
+  const [isPaletteOpen, setIsPaletteOpen] = useState(false);
 
+  useEffect(() => {
+    initAudio();
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Check for Cmd + K (Mac) or Ctrl + K (Windows/Linux)
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setIsPaletteOpen((prev) => !prev);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  return (
+    <div className="relative min-h-screen bg-[#090b10] text-[#e2e8f0] font-sans selection:bg-cyan-500/20 selection:text-cyan-200">
+      {/* Background Constellation & Grid */}
+      <BackgroundGrid />
+
+      {/* Global Command Palette Modal (Cmd + K) */}
+      <CommandPalette
+        isOpen={isPaletteOpen}
+        onClose={() => setIsPaletteOpen(false)}
+      />
+
+      {/* Main Content */}
       <div className="relative z-10">
-        <Navbar />
+        <Navbar onOpenPalette={() => setIsPaletteOpen(true)} />
         <main>
           <Hero />
           <About />
           <Skills />
-          <Suspense fallback={<div className="min-h-screen" />}>
-            <Projects />
-          </Suspense>
+          <Projects />
+          <RiscvSimulator />
+          <TerminalPlayground />
           <Contact />
         </main>
       </div>
