@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use dioxus::prelude::*;
 use crate::icons::{SkipForwardIcon, RotateCcwIcon, SparklesIcon};
 
