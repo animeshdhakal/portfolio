@@ -24,7 +24,7 @@ pub fn Contact() -> Element {
                 }
 
                 p { class: "text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-xl transition-colors",
-                    "Feel free to reach out for systems engineering opportunities, collaborations on low-level firmware or compilers, or just to chat about computer architecture."
+                    "Feel free to reach out for systems & networking engineering opportunities, collaborations on custom protocols or firmware, or just to chat about computer architecture."
                 }
 
                 div { class: "flex flex-wrap items-center gap-3 pt-2 font-mono text-xs",

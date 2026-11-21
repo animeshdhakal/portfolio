@@ -18,7 +18,7 @@ pub fn About() -> Element {
 
                 div { class: "space-y-4 text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-2xl transition-colors",
                     p {
-                        "I am focused on the intersection of hardware and systems software. My work ranges from building bare-metal firmware (FreeRTOS, ESP32) and writing emulators (RISC-V, MOS 6502) to high-throughput asynchronous networking servers using Netty and Rust."
+                        "I have a deep passion for computer networking and the intersection of hardware and systems software. My work ranges from designing custom wire protocols and high-throughput asynchronous servers (Netty, Rust, POSIX sockets) to building bare-metal firmware (FreeRTOS, ESP32) and writing micro-architecture emulators (RISC-V, MOS 6502)."
                     }
                 }
 

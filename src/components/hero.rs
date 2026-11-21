@@ -13,14 +13,14 @@ pub fn Hero() -> Element {
                         "Animesh Dhakal"
                     }
                     p { class: "text-base font-mono text-cyan-700 dark:text-cyan-400 font-medium transition-colors",
-                        "Systems & Embedded Software Engineer"
+                        "Systems, Embedded & Networking Engineer"
                     }
                 }
 
                 p { class: "text-zinc-600 dark:text-zinc-300 text-base sm:text-lg leading-relaxed max-w-2xl font-sans transition-colors",
                     "Undergraduate studying Electronics & Information Engineering at "
                     span { class: "text-zinc-900 dark:text-zinc-100 font-medium", "Pulchowk Campus (IOE), Tribhuvan University" }
-                    ". I build low-level systems, CPU emulators, embedded firmware, and network infrastructure across hardware and software."
+                    ". I love computer networking and low-level systems — building custom wire protocols, high-throughput network brokers, CPU emulators, and embedded firmware."
                 }
 
                 div { class: "flex flex-wrap items-center gap-4 pt-2 text-xs font-mono",
