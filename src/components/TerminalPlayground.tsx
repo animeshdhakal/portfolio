@@ -122,10 +122,12 @@ const TerminalPlayground: React.FC = () => {
     },
   ]);
 
-  const terminalEndRef = useRef<HTMLDivElement | null>(null);
+  const terminalBodyRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    terminalEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (terminalBodyRef.current) {
+      terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight;
+    }
   }, [history]);
 
   useEffect(() => {
@@ -322,7 +324,10 @@ const TerminalPlayground: React.FC = () => {
             <MatrixRainCanvas onExit={() => setMatrixMode(false)} />
           ) : (
             <>
-              <div className="p-5 space-y-3.5 max-h-[360px] overflow-y-auto bg-black/30">
+              <div
+                ref={terminalBodyRef}
+                className="p-5 space-y-3.5 max-h-[360px] overflow-y-auto bg-black/30"
+              >
                 {history.map((item, idx) => (
                   <div key={idx} className="space-y-1">
                     {item.command !== "welcome" && (
@@ -334,7 +339,6 @@ const TerminalPlayground: React.FC = () => {
                     <div className="pl-4">{item.output}</div>
                   </div>
                 ))}
-                <div ref={terminalEndRef} />
               </div>
 
               <div className="p-3 bg-[#0e131d] border-t border-slate-800 flex items-center gap-2">
