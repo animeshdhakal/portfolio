@@ -50,23 +50,23 @@ pub fn Projects() -> Element {
     ];
 
     rsx! {
-        section { id: "projects", class: "py-14 border-t border-zinc-800/60",
+        section { id: "projects", class: "py-14 border-t border-zinc-200 dark:border-zinc-800/60 transition-colors",
             div { class: "max-w-4xl mx-auto px-6 space-y-6",
                 div { class: "flex items-center justify-between",
-                    h2 { class: "text-lg font-mono font-semibold text-zinc-100 flex items-center gap-2",
-                        span { class: "text-cyan-400", "02." }
+                    h2 { class: "text-lg font-mono font-semibold text-zinc-900 dark:text-zinc-100 flex items-center gap-2 transition-colors",
+                        span { class: "text-cyan-600 dark:text-cyan-400 font-bold", "02." }
                         "Selected Projects"
                     }
                     a {
                         href: "https://github.com/animeshdhakal?tab=repositories",
                         target: "_blank",
-                        class: "text-xs font-mono text-zinc-400 hover:text-cyan-400 transition-colors flex items-center gap-1",
+                        class: "text-xs font-mono text-zinc-500 hover:text-cyan-600 dark:text-zinc-400 dark:hover:text-cyan-400 transition-colors flex items-center gap-1",
                         span { "all repos" }
                         ArrowUpRightIcon { class: "w-3 h-3" }
                     }
                 }
 
-                div { class: "divide-y divide-zinc-800/60",
+                div { class: "divide-y divide-zinc-200 dark:divide-zinc-800/60 transition-colors",
                     for p in top_projects {
                         a {
                             key: "{p.title}",
@@ -74,17 +74,17 @@ pub fn Projects() -> Element {
                             target: "_blank",
                             class: "group block py-5 transition-all hover:pl-2",
                             div { class: "flex flex-col sm:flex-row sm:items-baseline justify-between gap-1",
-                                h3 { class: "text-base font-semibold font-mono text-zinc-100 group-hover:text-cyan-300 transition-colors flex items-center gap-1.5",
+                                h3 { class: "text-base font-semibold font-mono text-zinc-900 dark:text-zinc-100 group-hover:text-cyan-600 dark:group-hover:text-cyan-300 transition-colors flex items-center gap-1.5",
                                     "{p.title}"
-                                    ArrowUpRightIcon { class: "w-3.5 h-3.5 text-zinc-600 group-hover:text-cyan-400 transition-colors" }
+                                    ArrowUpRightIcon { class: "w-3.5 h-3.5 text-zinc-400 dark:text-zinc-600 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors" }
                                 }
                                 div { class: "flex items-center gap-2 text-xs font-mono",
-                                    span { class: "text-cyan-400 font-medium", "{p.lang}" }
-                                    span { class: "text-zinc-600 hidden sm:inline", "•" }
+                                    span { class: "text-cyan-700 dark:text-cyan-400 font-medium", "{p.lang}" }
+                                    span { class: "text-zinc-400 dark:text-zinc-600 hidden sm:inline", "•" }
                                     span { class: "text-zinc-500 text-[11px] hidden sm:inline", "{p.tags}" }
                                 }
                             }
-                            p { class: "text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed max-w-2xl font-sans",
+                            p { class: "text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 mt-2 leading-relaxed max-w-2xl font-sans transition-colors",
                                 "{p.desc}"
                             }
                         }

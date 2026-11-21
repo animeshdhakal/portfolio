@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="dark scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,6 +12,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
           fontFamily: {
@@ -22,10 +23,18 @@
       },
     };
   </script>
+  <script>
+    (function() {
+      const stored = localStorage.getItem('theme');
+      if (stored === 'light') {
+        document.documentElement.classList.remove('dark');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   <style>
     body {
-      background-color: #090a0f;
-      color: #f4f4f5;
       font-family: 'Inter', sans-serif;
     }
     ::-webkit-scrollbar {
@@ -33,18 +42,19 @@
       height: 6px;
     }
     ::-webkit-scrollbar-track {
-      background: #090a0f;
+      background: transparent;
     }
-    ::-webkit-scrollbar-thumb {
+    .dark ::-webkit-scrollbar-thumb {
       background: #27272a;
       border-radius: 9999px;
     }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #3f3f46;
+    ::-webkit-scrollbar-thumb {
+      background: #d4d4d8;
+      border-radius: 9999px;
     }
   </style>
 </head>
-<body class="bg-[#090a0f] text-zinc-100 selection:bg-cyan-500/20 selection:text-cyan-200">
+<body class="bg-zinc-50 text-zinc-900 dark:bg-[#090a0f] dark:text-zinc-100 selection:bg-cyan-500/20 selection:text-cyan-800 dark:selection:text-cyan-200 transition-colors duration-200">
   <div id="main"></div>
 </body>
 </html>

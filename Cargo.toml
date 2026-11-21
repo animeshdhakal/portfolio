@@ -14,7 +14,9 @@ web-sys = { version = "0.3.77", features = [
     "HtmlCanvasElement",
     "CanvasRenderingContext2d",
     "KeyboardEvent",
-    "Element"
+    "Element",
+    "Storage",
+    "DomTokenList"
 ] }
 wasm-bindgen = "0.2.100"
 serde = { version = "1.0", features = ["derive"] }
